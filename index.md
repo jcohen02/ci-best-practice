@@ -1,5 +1,6 @@
 ---
 title: Continuous Integration for Research Software
+layout: page
 ---
 Table of Contents
 - TOC
