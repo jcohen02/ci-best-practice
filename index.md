@@ -28,9 +28,10 @@ This is a living document that is intended to be updated to reflect best
 practice and the ever changing technology landscape around CI. This document is
 mainly written for those developing research software in an academic setting. If
 you think anything in this document is out of date (or you just plain disagree)
-then please feel free to create an issue in the [GitHub repo]({{repo_url}}) to
-discuss. If you'd like to write anything for inclusion please see
-[CONTRIBUTING.md]({{repo_url}}/CONTRIBUTING.md).
+then please feel free to create an issue in the [GitHub
+repo]({{ site.github.repository_url }}) to discuss. If you'd like to write
+anything for inclusion please see
+[CONTRIBUTING.md]({{ site.github.repository_url }}/CONTRIBUTING.md).
 
 ## Use Your Research Software Engineers
 
