@@ -3,7 +3,8 @@ title: Continuous Integration for Research Software
 layout: page
 ---
 Table of Contents
-- TOC
+
+* TOC
 {:toc}
 
 # Introduction
@@ -23,7 +24,7 @@ interested in current best practice for CI. It should be of interest whether you
 are looking at setting up CI for the first time or reviewing an existing
 setup. This document aims to provide a (somewhat opinionated) overview of the
 different options for using CI with your code and how to address common
-challenges faced by research software. 
+challenges faced by research software.
 
 This is a living document that is intended to be updated to reflect best
 practice and the ever changing technology landscape around CI. This document is
@@ -45,8 +46,9 @@ anyway.
 ## Decisions to Make
 
 To get up and running with CI there are two major choices to make:
+
 1. Which software/service you will use (we'll call this the `front-end`)
-2. Where the compute power for your CI jobs will come from (we'll call this the
+1. Where the compute power for your CI jobs will come from (we'll call this the
    `back-end`)
 
 Both of these will be impacted by the individual circumstances and requirements
@@ -135,14 +137,15 @@ projects across a group or department.
 ## Recommendations
 
 We suggest the below ordering in terms of preference for a CI setup:
+
 1. Use the `front-end` and `back-end` provided by your version control host
    i.e. GitHub Actions or GitLab CI.
-2. Use the `front-end` and `back-end` provided by a third-party online
+1. Use the `front-end` and `back-end` provided by a third-party online
    service.
-3. Use a hosted `front-end` and `back-end` supplemented with additional
+1. Use a hosted `front-end` and `back-end` supplemented with additional
    self-hosted `runners`.
-4. Use a hosted `front-end` and a fully self-hosted `back-end`.
-5. Self-host the `front-end` and `back-end`.
+1. Use a hosted `front-end` and a fully self-hosted `back-end`.
+1. Self-host the `front-end` and `back-end`.
 
 The reasoning behind the above is to use off-the-shelf offerings as far as
 possible. If you are looking for a robust and long-term CI system it's easy to
@@ -224,7 +227,7 @@ Research software can have complex dependencies (including other pieces of
 research software) or rely on restrictively licensed products such as the Intel
 compiler suite or Red Hat.
 
-#### My software has complex, but installable dependencies 
+#### My software has complex, but installable dependencies
 
 The most obvious solution in this case is to provide a local `runner` where you
 have set up all of the dependencies correctly. This problem can also be worked
@@ -246,6 +249,7 @@ be concocted. Otherwise, with the exception of the below suggestions, your only
 option is to self-host one or more `runners` for this purpose.
 
 In a few cases there might be workarounds you can use to avoid self-hosting:
+
 * Anvil provides access to a HPC `backend` that includes common dependencies for
   research software.
 * Red Hat have started to provide [docker images][redhat] for their operating
@@ -292,5 +296,3 @@ when setting up their CI. We try to examine the different challenges faced by
 each project and why they made different choices.
 
 [Case Studies](case-studies.html)
-
-
