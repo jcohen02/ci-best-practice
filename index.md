@@ -70,11 +70,14 @@ overall passed status or failed status.
 
 To use a CI system you need to write instructions for the `front-end` which
 define the `jobs` that should run when you make changes to your code. This
-*generally* takes the form of a yaml file using the approved syntax of your
-chosen system and checked into your code repository. You then need a `back-end`
-that will pick up those jobs. Depending on the system you choose a `back-end`
-may or may not be provided for you. If a `back-end` is provided it will likely
-be subject to usage restrictions of one form or another.
+*generally* takes the form of a [YAML][] file that you write,
+using the approved syntax of your chosen CI system, and check in to your code
+repository. You then need a `back-end` that will pick up those jobs. Depending
+on the system you choose, a `back-end` may or may not be provided for you. If
+a `back-end` is provided it will likely be subject to usage restrictions of
+one form or another.
+
+[YAML]: https://yaml.org/
 
 To keep things interesting there is no universal terminology used for the
 above. Although there is some overlap, individual CI services may use different
@@ -82,38 +85,38 @@ terms e.g. `agent` in place of `runner`.
 
 ## Online services
 
-Many CI systems are available as commercially hosted services. Typically these
+Many CI systems are operated as commercially hosted services. Typically these
 include both a `front-end` and a hosted `back-end`. The business model for these
 services generally works by offering their `front-end` for free with tiered
 access to their `back-end`. Fortunately competition is driving the free tier of
 most services towards increasingly generous offerings for open source
-projects. If your project is closed source generally at least some free
-resources are offered but consider carefully your current (and future)
+projects. If your project is closed source, at least some amount of free
+resources are generally offered but consider carefully your current (and future)
 requirements.
 
 Broadly, one can distinguish between services included as part of code hosting
 (e.g. GitLab CI, GitHub Actions, BitBucket Pipelines) and stand alone services
-(e.g. Azure Pipelines, Travis, Circle CI). **Unless you have a compelling reason
+(e.g. Azure Pipelines, Travis CI, Circle CI). **Unless you have a compelling reason
 it is recommended to use the CI system integrated with your code hosting**. This
 is generally easier to setup and will provide the best overall user experience.
 
-If you find that the hosted `back-end` is insufficient it is also generally
-supported to add your own infrastructure as a supplement. If you have available
-compute resources they can usually be registered as a `runner` that will pick up
-`jobs` from your project.
+If you find that the hosted `back-end` capcity that is provided is insufficient,
+support is often provided for adding your own infrastructure as a supplement. If
+you have available compute resources they can usually be registered as a
+`runner` that will pick up `jobs` from your project.
 
 ### Anvil
 
 There is one hosted service that is worth a special mention. [Anvil][] is an
 STFC-hosted Jenkins instance of particular note as its `back-end` is provided by
 SCARF, an HPC cluster. This gives Anvil some unique capabilities such as running
-multi-node `jobs`, access to common licensed softwares and other trappings of
+multi-node `jobs`, access to common licensed software and other trappings of
 numerically intensive simulation environments. This also comes with some
 downsides however, in particular the lack of support for containers
 
 [Anvil]: https://anvil.softeng-support.ac.uk/
 
-One notable restriction that applies to Anvil however is that there are
+One notable limitation that applies to Anvil, however, is that there are
 considerable restrictions on eligible projects based on STFC remit.
 
 ## Self Hosting
@@ -128,7 +131,7 @@ workloads.
 
 [FOSS]: https://en.wikipedia.org/wiki/Free_and_open-source_software
 
-If do go the route of hosting a `front-end` Jenkins is a widely used FOSS
+If you do take the route of self-hosting a `front-end`, Jenkins is a widely used FOSS
 option. Consider using the Blue Ocean plugin for enhanced usability and a nicer
 interface. It could be worth looking for ways to spread the maintenance
 responsibilities, for example by running a single CI instance for multiple
@@ -147,7 +150,7 @@ We suggest the below ordering in terms of preference for a CI setup:
 1. Use a hosted `front-end` and a fully self-hosted `back-end`.
 1. Self-host the `front-end` and `back-end`.
 
-The reasoning behind the above is to use off-the-shelf offerings as far as
+The reasoning behind the above ordering is to use off-the-shelf offerings as far as
 possible. If you are looking for a robust and long-term CI system it's easy to
 make the case for hosted services. Achieving the same reliability as a
 professionally hosted service is difficult and it's easy to underestimate the
@@ -155,9 +158,9 @@ amount of time you'll spend maintaining your own installation.
 
 You will need to balance the above ordering against potential costs,
 particularly if your project is not open-source. As a rule of thumb any of the
-above hosted options should be viable for *most* open-source projects at no
-cost. For closed-source, free usage limits of hosted `back-ends` vary
-considerably between offerings.
+above hosted options *should* be viable for *most* open-source projects since they
+are generally available at no cost. For closed-source, free usage limits of hosted
+`back-ends` vary considerably between offerings.
 
 # CI for Research Software
 
@@ -168,9 +171,9 @@ how these might influence the choices you make.
 ## General advice
 
 1. The majority of CI systems offer pretty similar functionality. It may be best
-   to think about what will be the least effort to maintain and use rather than
-   go for a unique feature that saves half a day of setup but commits you to a
-   sub-optimal workflow.
+   to think about which system(s) will take the least effort to maintain and use
+   rather than going for a unique feature that saves half a day of setup but
+   commits you to a sub-optimal workflow.
 1. Use Docker wherever possible in your `jobs`. Any hosted `back-end` worth its
    salt should support Docker on its `runners`. Using Docker containers gives
    you:
@@ -185,25 +188,25 @@ how these might influence the choices you make.
 
 The capabilities of available CI systems often reflect the requirements of
 commercial or open-source software rather than typical research software. In
-this section we discuss some of challenges that can arise when using CI with
-research software.
+this section we discuss some of the challenges that can arise when using CI
+with research software.
 
 ### Computational Intensiveness
 
 Ideally you don't want to be in a situation where building and testing your
-project consumes a large amount of cpu time or memory. CI is focused on rapid
+project consumes a large amount of CPU time or memory. CI is focused on rapid
 iteration so the day-to-day tests you use in development should support this
 with short run times and modest data sizes. Most CI systems support scheduling
 jobs to run at regular intervals. Consider pulling out your most computationally
 intensive tests to run once a week rather than every time you push a commit.
 
-Now lets assume the advice above is impossible or too onerous to implement. If
+Now let's assume the advice above is impossible or too onerous to implement. If
 you're considering a hosted CI `back-end` be careful to check the specs on the
 `runners` provided and the usage restrictions that are applied. Whilst total
 usage is often not capped for open-source projects there can be limits on the
 number of simultaneous `jobs` that can run. Watch out for individual `job` time
 limits as well as these can vary considerably between providers. If you can't
-find a hosted option that meets your requirements you're stuck in the territory
+find a hosted option that meets your requirements, you're stuck in the territory
 of providing your own runners which can be configured to run workloads of any
 size or length you like.
 
@@ -245,7 +248,7 @@ Generally the issue with this is that any `runner` executing a job will need to
 be able to talk to a license server that is not available outside of your
 institution's network. This can be a real challenge for hosted `back-ends`, it
 may be worth discussing with your local ICT if a VPN or SSH tunnel solution can
-be concocted. Otherwise, with the exception of the below suggestions, your only
+be concocted. Otherwise, with the exception of the suggestions below, your only
 option is to self-host one or more `runners` for this purpose.
 
 In a few cases there might be workarounds you can use to avoid self-hosting:
@@ -266,7 +269,7 @@ In a few cases there might be workarounds you can use to avoid self-hosting:
 
 ### Multi-node Testing
 
-This primarily applies to MPI capable HPC codes that expect to routinely run
+This primarily applies to MPI-capable HPC codes that expect to routinely run
 across multiple compute nodes. Similar to using accelerators, we're not aware of
 any hosted services that support this.
 
