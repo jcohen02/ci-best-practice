@@ -95,10 +95,18 @@ resources are generally offered but consider carefully your current (and future)
 requirements.
 
 Broadly, one can distinguish between services included as part of code hosting
-(e.g. GitLab CI, GitHub Actions, BitBucket Pipelines) and stand alone services
-(e.g. Azure Pipelines, Travis CI, Circle CI). **Unless you have a compelling reason
-it is recommended to use the CI system integrated with your code hosting**. This
-is generally easier to setup and will provide the best overall user experience.
+(e.g. [GitLab CI][], [GitHub Actions][], [BitBucket Pipelines][]) and stand
+alone services (e.g. [Azure Pipelines][], [Travis CI][], [Circle CI][]).
+**Unless you have a compelling reason it is recommended to use the CI system
+integrated with your code hosting**. This is generally easier to setup and
+will provide the best overall user experience.
+
+[GitLab CI]: https://docs.gitlab.com/ee/ci/
+[GitHub Actions]: https://github.com/actions
+[BitBucket Pipelines]: https://bitbucket.org/product/features/pipelines
+[Azure Pipelines]: https://azure.microsoft.com/en-gb/services/devops/pipelines/
+[Travis CI]: https://travis-ci.com/
+[Circle CI]: https://circleci.com/
 
 If you find that the hosted `back-end` capcity that is provided is insufficient,
 support is often provided for adding your own infrastructure as a supplement. If
@@ -125,17 +133,22 @@ Instead of using a hosted online service it is also possible to host your own CI
 solution entirely. Some of the online services also offer the ability to
 download and self-host (e.g. Circle CI, GitLab CI), though this sometimes
 requires an enterprise license. There are also some systems, typically [FOSS][]
-ones, that are more geared towards self hosting (e.g. Jenkins, Buildbot). You
-will have to setup your own `back-end` compute resources to process your
-workloads.
+ones, that are more geared towards self hosting (e.g. [Jenkins][],
+[Buildbot][]). You will have to setup your own `back-end` compute resources
+to process your workloads.
+
+[Jenkins]: https://www.jenkins.io/
+[Buildbot]: https://buildbot.net/
 
 [FOSS]: https://en.wikipedia.org/wiki/Free_and_open-source_software
 
 If you do take the route of self-hosting a `front-end`, Jenkins is a widely used FOSS
-option. Consider using the Blue Ocean plugin for enhanced usability and a nicer
+option. Consider using the [Blue Ocean plugin][] for enhanced usability and a nicer
 interface. It could be worth looking for ways to spread the maintenance
 responsibilities, for example by running a single CI instance for multiple
 projects across a group or department.
+
+[Blue Ocean plugin]: https://plugins.jenkins.io/blueocean/
 
 ## Recommendations
 
@@ -174,15 +187,17 @@ how these might influence the choices you make.
    to think about which system(s) will take the least effort to maintain and use
    rather than going for a unique feature that saves half a day of setup but
    commits you to a sub-optimal workflow.
-1. Use Docker wherever possible in your `jobs`. Any hosted `back-end` worth its
-   salt should support Docker on its `runners`. Using Docker containers gives
-   you:
+1. Use [Docker][] wherever possible in your `jobs`. Any hosted `back-end` worth
+   its salt should support Docker on its `runners`. Using Docker containers
+   gives you:
   * Reproducibility - any `job` that fails in the `back-end` can be easily rerun
     locally for interactive debugging.
   * Reliability - `jobs` are less likely to break spontaneously due to
     configuration changes on the `runner`.
   * Flexibility - `jobs` will care a lot less about where they are run meaning
     you're not as tied in to a particular CI system or set of `runners`.
+
+[Docker]: https://www.docker.com
 
 ## Challenges for Research Software and CI
 
@@ -261,11 +276,15 @@ In a few cases there might be workarounds you can use to avoid self-hosting:
 * Intel has started to release versions of their compilers and numerical
   libraries under their [oneAPI Toolkits][oneapi]. Hope you don't mind an 18GB
   Docker image though.
-* Look into non-enterprise equivalents e.g. CentOS instead of Red Hat, GNU
-  Octave instead of Matlab
+* Look into non-enterprise equivalents e.g. [CentOS][] instead of [Red Hat][],
+  [GNU Octave][] instead of [Matlab].
 
 [redhat]: https://catalog.redhat.com/software/containers/search
 [oneapi]: https://software.intel.com/content/www/us/en/develop/tools/oneapi.html#oneapi-toolkits
+[CentOS]: https://www.centos.org/
+[Red Hat]: https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux
+[GNU Octave]: https://www.gnu.org/software/octave/
+[Matlab]: https://www.mathworks.com/products/matlab.html
 
 ### Multi-node Testing
 
